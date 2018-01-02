@@ -20,9 +20,23 @@ package org.apache.mahout;
 import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
 
+/* 
+ * Tipo di errore risolto:
+ * Type: Code Smell   Lv: Major  Category: bad-practice, cert
+ * */
+
+/* aggiunta import 
+ * */
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import java.io.IOException;
 
+
 public final class Version {
+
+  /* inizializzato logger*/
+  private static final Logger LOGGER = Logger.getLogger( Version.class.getName() );
 
   private Version() {
   }
@@ -36,6 +50,7 @@ public final class Version {
   }
 
   public static void main(String[] args) throws IOException {
-    System.out.println(version() + ' ' + versionFromResource());
+	  /* sostituito il system out con il logger*/
+	  LOGGER.log(Level.INFO,"Return version and versionFromResource ",version() + ' ' + versionFromResource());
   }
 }

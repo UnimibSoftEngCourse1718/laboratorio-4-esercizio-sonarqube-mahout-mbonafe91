@@ -288,7 +288,11 @@ public class SplitInput extends AbstractJob {
     if (fs.getFileStatus(inputDir) == null) {
       throw new IOException(inputDir + " does not exist");
     }
-    if (!fs.getFileStatus(inputDir).isDir()) {
+    /* FIX MB
+     * Rimosso isDir Deprecato 
+	 * Tipo: Code Smell   Livello: Minor   Categoria, cwe, obsolete
+     * */
+    if (!fs.getFileStatus(inputDir).isDirectory()) {
       throw new IOException(inputDir + " is not a directory");
     }
 
@@ -299,7 +303,11 @@ public class SplitInput extends AbstractJob {
       // input dir contains one file per category.
       FileStatus[] fileStats = fs.listStatus(inputDir, PathFilters.logsCRCFilter());
       for (FileStatus inputFile : fileStats) {
-        if (!inputFile.isDir()) {
+    	  /* FIX MB
+    	   * Rimosso isDir Deprecato 
+    	   * Tipo: Code Smell   Livello: Minor   Categoria, cwe, obsolete
+    	   * */
+        if (!inputFile.isDirectory()) {
           splitFile(inputFile.getPath());
         }
       }
@@ -316,7 +324,11 @@ public class SplitInput extends AbstractJob {
     if (fs.getFileStatus(inputFile) == null) {
       throw new IOException(inputFile + " does not exist");
     }
-    if (fs.getFileStatus(inputFile).isDir()) {
+    /* FIX MB
+     * Rimosso isDir Deprecato 
+	 * Tipo: Code Smell   Livello: Minor   Categoria, cwe, obsolete
+     * */
+    if (fs.getFileStatus(inputFile).isDirectory()) {
       throw new IOException(inputFile + " is a directory");
     }
 
@@ -637,10 +649,18 @@ public class SplitInput extends AbstractJob {
       Configuration conf = getConf();
       FileSystem fs = trainingOutputDirectory.getFileSystem(conf);
       FileStatus trainingOutputDirStatus = fs.getFileStatus(trainingOutputDirectory);
-      Preconditions.checkArgument(trainingOutputDirStatus != null && trainingOutputDirStatus.isDir(),
+      /* FIX MB
+       * Rimosso isDir Deprecato 
+  	   * Tipo: Code Smell   Livello: Minor   Categoria, cwe, obsolete
+       * */
+      Preconditions.checkArgument(trainingOutputDirStatus != null && trainingOutputDirStatus.isDirectory(),
           "%s is not a directory", trainingOutputDirectory);
       FileStatus testOutputDirStatus = fs.getFileStatus(testOutputDirectory);
-      Preconditions.checkArgument(testOutputDirStatus != null && testOutputDirStatus.isDir(),
+      /* FIX MB
+       * Rimosso isDir Deprecato 
+  	   * Tipo: Code Smell   Livello: Minor   Categoria, cwe, obsolete
+       * */
+      Preconditions.checkArgument(testOutputDirStatus != null && testOutputDirStatus.isDirectory(),
           "%s is not a directory", testOutputDirectory);
     }
   }

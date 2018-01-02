@@ -338,7 +338,12 @@ public final class OrderBasedRecommenderEvaluator {
           break;
         }
       }
+      /* Aggiunta condizione per evitare la divisione per 0
+       * Make sure "count" can't be zero before doing this division
+       * Tipo: Bug   Livello: Critical   Categoria: cert, cwe, denial-of-service
+       * */
       if (vectorZ[i] != 0) {
+    	if(count == 0) { throw new ArithmeticException("Errore: Divisione per 0 non possibile: " + count);}	
         ranks[i] = (rank / count) * (vectorZ[i] < 0 ? -1 : 1);  // better be at least 1
         ranksAbs[i] = Math.abs(ranks[i]);
       }
